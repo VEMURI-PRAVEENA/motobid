@@ -1,0 +1,30 @@
+{
+  "name": "motobid",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev -w @motobid/api\" \"npm run dev -w @motobid/web\"",
+    "build": "npm run build -w @motobid/shared && npm run build -w @motobid/api && npm run build -w @motobid/web",
+    "lint": "eslint . --ext .ts,.tsx,.js,.mjs && npm run format:check",
+    "typecheck": "npm run build -w @motobid/shared && npm run typecheck -w @motobid/shared && npm run typecheck -w @motobid/api && npm run typecheck -w @motobid/web",
+    "test": "npm run build -w @motobid/shared && npm run test -w @motobid/shared && npm run test -w @motobid/api && npm run test -w @motobid/web",
+    "test:e2e": "npm run test:e2e -w @motobid/web",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "eslint": "^9.27.0",
+    "concurrently": "^9.2.1",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  }
+}
